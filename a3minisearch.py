@@ -1,4 +1,10 @@
-# Importing Python libraries
+#Student: Corey He
+#ID: 217253527
+
+#There are del statements throughout the code to save memory. My laptop couldn't handle it otherwise.
+
+
+#Importing Python libraries
 import bs4 as BeautifulSoup
 import urllib.request 
 import os.path
@@ -70,6 +76,7 @@ del allparagraphs
 del parse_page
 del x
 del BeautifulSoup
+del html
 
 #display first paragraph descriptions
 '''def print_page_descriptions():
@@ -117,8 +124,8 @@ for k in wordindex:
     wordcount[k]=len(wordindexvaluelist)
     del wordindexvaluelist
 
-print(wordcount)
-print(wordindex)
+#print(wordcount)
+#print(wordindex)
 
 #keyword country search
 def country_search(keyword):
@@ -136,7 +143,8 @@ def country_search(keyword):
         return ('Your searched word was not in the index.')
 
 print(country_search('is'))
-print(country_search('Country'))
+userinput=input("Enter your keyword for direct search:\n")
+print(country_search(userinput))
 
 #levenshtein distance
 def editdistance(keyword):
@@ -152,13 +160,29 @@ def editdistance(keyword):
     return returnvalues 
 
 results=editdistance("Toronta")
-print ("The closest word to the searched key:"+results[0]+" is "+results[1]+ " with an edit distance of "+str(results[2]))
+print ("The closest word to the searched keyword:"+results[0]+" is "+results[1]+ " with an edit distance of "+str(results[2]))
+
+
+userinput=input("Enter your keyword for levenshtein:\n")
+if (userinput.isspace()):
+        print("That's just a space!")
+else:
+    results=editdistance(userinput)
+    print ("The closest word to the searched keyword:"+results[0]+" is "+results[1]+ " with an edit distance of "+str(results[2]))
+
+
 
 #fuzzy search
 def fuzzy_search(keyword):
+    if (keyword.isspace()):
+        return "That's just a space!"
     results=editdistance(keyword)
     location=country_search(results[1])
+    print ("The closest word to the searched keyword:"+results[0]+" is "+results[1]+ " with an edit distance of "+str(results[2]))
     return location
 
 print(fuzzy_search('Itali'))
+
+userinput=input("Enter your keyword for fuzzy search:\n")
+print(fuzzy_search(userinput))
     
